@@ -4,13 +4,13 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class MainActivityModule {
+public class ActivityModule {
 
-//  private MainActivity activity;
-//
-//  public  MainActivityModule(MainActivity activity) {
-//    this.activity = activity;
-//  }
+  private MainActivity activity;
+
+  public  ActivityModule(MainActivity activity) {
+    this.activity = activity;
+  }
 
   @Provides
   Person providePerson() {
