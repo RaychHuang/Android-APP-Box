@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.example.interview.interview.R;
 import com.example.interview.interview.model.ImagePair;
 import com.example.interview.interview.model.ResponseItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,11 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        Picasso.with(context).load()
+        String url = mData.get(position).getUrl();
+        Picasso.with(context)
+                .load(url)
+                .fit()
+                .into(holder.mImage);
     }
 
 

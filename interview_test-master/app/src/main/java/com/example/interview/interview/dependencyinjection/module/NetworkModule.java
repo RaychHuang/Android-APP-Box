@@ -14,13 +14,13 @@ import rx.schedulers.Schedulers;
 public class NetworkModule {
 
     @Provides
-    OkHttpClient provideOkhttpClient() {
+    public OkHttpClient provideOkhttpClient() {
         OkHttpClient.Builder client = new OkHttpClient.Builder();
         return client.build();
     }
 
     @Provides
-    Retrofit provideRetrofit(OkHttpClient okHttpClient) {
+    public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
 
         return new Retrofit.Builder()
                 .client(okHttpClient)

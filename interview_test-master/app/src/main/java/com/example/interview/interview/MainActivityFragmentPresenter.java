@@ -1,11 +1,22 @@
 package com.example.interview.interview;
 
-import com.example.interview.interview.model.ImagePair;
-import com.example.interview.interview.network.LoadPhotoService;
+import android.media.Image;
+import android.util.Log;
 
+import com.example.interview.interview.model.ImagePair;
+import com.example.interview.interview.model.ResponseItem;
+import com.example.interview.interview.network.LoadPhotoService;
+import com.example.interview.interview.network.NetworkConfig;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 
 public class MainActivityFragmentPresenter implements MainActivityFragmentContract.Presenter {
@@ -39,26 +50,50 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
 
     @Override
     public void loadData() {
-        if (noMoreData) {
-
+        Log.i("Raych", "MainActivityFragmentPresenter.loadData() is called.");
+        //service.loadPhotos(NetworkConfig.CLIENT_ID)
+        if (service == null) {
+            Log.i("Raych", "MainActivityFragmentPresenter.loadData(): service is null.");
+            return;
         }
-//        service.loadPhotos(NetworkConfig.CLIENT_ID)
+        service.loadPhotos(NetworkConfig.CLIENT_ID)
+                .map(new Func1<List<ResponseItem>, List<ImagePair>>() {
+                    @Override
+                    public List<ImagePair> call(List<ResponseItem> responseItems) {
+                        if (responseItems == null) {
+                            return  null;
+                        }
+                        List<ImagePair> res = new ArrayList<>(responseItems.size());
+                        for (int i = 0, iSize = responseItems.size(); i < iSize; i++) {
+                            ResponseItem item = responseItems.get(i);
+                            res.add(new ImagePair(item.id, item.urls.regular));
+                        }
+                        return res;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadDataSucceed, this::loadDataError);
     }
 
+    //LoadPhoto CallBack Functions
     private void loadDataSucceed(List<ImagePair> data) {
+        Log.i("Raych", "MainActivityFragmentPresenter.loadDataSucceed() is called.");
         if (data != null) {
             if (data.size() == 0) {
                 noMoreData = true;
             } else {
                 pageNum++;
                 noMoreData = false;
-                view.showAddData(data);
+                if (getView() != null) {
+                    getView().showAddData(data);
+                }
             }
         }
     }
 
-    private void loadDataError() {
-
+    private void loadDataError(Throwable e) {
+        Log.i("Raych", "MainActivityFragmentPresenter.loadDataError() is called.");
     }
 
     private MainActivityFragmentContract.View getView() {

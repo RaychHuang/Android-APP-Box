@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.interview.interview.adapters.PhotoAdapter;
+import com.example.interview.interview.dependencyinjection.component.DaggerMainActivityFragmentComponent;
+import com.example.interview.interview.dependencyinjection.module.MainActivityFragmentPresenterModule;
 import com.example.interview.interview.model.ImagePair;
 
 import java.util.List;
@@ -30,14 +32,14 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
     private PhotoAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public MainActivityFragment() {
-
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        injectPresenter();
         presenter.takeView(this);
+        if (savedInstanceState == null) {
+            presenter.loadData();
+        }
     }
 
     @Override
@@ -67,7 +69,7 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
     //MainActivityFragmentContract.View
     @Override
     public void showAddData(List<ImagePair> data) {
-        mAdapter.addData(data);
+        mAdapter.replaceData(data);
     }
 
     @Override
@@ -78,6 +80,15 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
     @Override
     public void netWorkError() {
 
+    }
+
+    //Dagger2 setup
+    private void injectPresenter() {
+        DaggerMainActivityFragmentComponent
+                .builder()
+                .mainActivityFragmentPresenterModule(new MainActivityFragmentPresenterModule())
+                .build()
+                .inject(this);
     }
 }
 
