@@ -1,6 +1,5 @@
 package com.example.interview.interview;
 
-import android.media.Image;
 import android.util.Log;
 
 import com.example.interview.interview.model.ImagePair;
@@ -13,7 +12,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -29,8 +27,8 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
     private boolean loading;
     private MainActivityFragmentContract.View view;
 
-
-    public MainActivityFragmentPresenter() {
+    @Inject
+    public MainActivityFragmentPresenter(String id) {
         this.pageNum = 0;
         this.noMoreData = false;
         this.loading = false;
@@ -41,6 +39,11 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
     public void takeView(MainActivityFragmentContract.View view) {
         this.view = view;
         this.pageNum = 0;
+//        DaggerPresenterComponent.builder()
+//                .networkModule(new NetworkModule())
+//                .photoServiceModule(new LoadPhotoServiceModule())
+//                .build()
+//                .inject(this);
     }
 
     @Override

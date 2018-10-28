@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.interview.interview.adapters.PhotoAdapter;
-import com.example.interview.interview.dependencyinjection.component.DaggerMainActivityFragmentComponent;
-import com.example.interview.interview.dependencyinjection.module.MainActivityFragmentPresenterModule;
 import com.example.interview.interview.model.ImagePair;
 
 import java.util.List;
@@ -26,7 +24,7 @@ import javax.inject.Inject;
 public class MainActivityFragment extends Fragment implements MainActivityFragmentContract.View {
 
     @Inject
-    MainActivityFragmentContract.Presenter presenter;
+    MainActivityFragmentPresenter presenter;
 
     private RecyclerView mRecyclerView;
     private PhotoAdapter mAdapter;
@@ -84,11 +82,10 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
     //Dagger2 setup
     private void injectPresenter() {
-        DaggerMainActivityFragmentComponent
-                .builder()
-                .mainActivityFragmentPresenterModule(new MainActivityFragmentPresenterModule())
-                .build()
-                .inject(this);
+//        DaggerMainActivityFragmentComponent
+//                .builder()
+//                .build()
+//                .inject(this);
     }
 }
 

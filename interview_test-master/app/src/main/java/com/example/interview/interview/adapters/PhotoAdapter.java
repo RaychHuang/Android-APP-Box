@@ -42,7 +42,6 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         String url = mData.get(position).getUrl();
         Picasso.with(context)
                 .load(url)
-                .fit()
                 .into(holder.mImage);
     }
 
