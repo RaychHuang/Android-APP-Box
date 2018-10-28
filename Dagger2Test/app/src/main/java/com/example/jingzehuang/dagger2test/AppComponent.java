@@ -6,10 +6,6 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 
-/**
- * Created by Raych on Oct.19, 18.
- */
-
 @Component(modules = AppModule.class)
 public interface AppComponent {
 

@@ -9,7 +9,7 @@ public class Destination {
 
     public void init() {
 //        DaggerSimpleComponent.builder()
-//                .simpleModule(new SimpleModule(this))
+//                .simpleModule(new ProductModule(this))
 //                .build()
 //                .inject(this);
     }
