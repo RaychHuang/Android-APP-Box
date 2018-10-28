@@ -14,26 +14,20 @@ import rx.schedulers.Schedulers;
 @Module
 public class LoadPhotoServiceModule {
 
-//    @Provides
-//    public LoadPhotoService provideLoadPhotoService(Retrofit retrofit) {
-//        return retrofit.create(LoadPhotoService.class);
-//    }
-
-
     @Provides
-    String provideId() {
-        return "Test";
-    }
-
-    @Provides
-    public LoadPhotoService provideLoadPhotoService() {
-        Retrofit retrofit = new Retrofit.Builder()
-                    .client(new OkHttpClient.Builder().build())
-                    .baseUrl(NetworkConfig.BASE_ENDPOINT)
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
+    LoadPhotoService provideLoadPhotoService(Retrofit retrofit) {
         return retrofit.create(LoadPhotoService.class);
     }
+
+//    @Provides
+//    public LoadPhotoService provideLoadPhotoService() {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .client(new OkHttpClient.Builder().build())
+//                .baseUrl(NetworkConfig.BASE_ENDPOINT)
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        return retrofit.create(LoadPhotoService.class);
+//    }
 }

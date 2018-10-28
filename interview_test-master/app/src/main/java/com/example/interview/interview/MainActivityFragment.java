@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.interview.interview.adapters.PhotoAdapter;
+import com.example.interview.interview.dependencyinjection.component.DaggerMainActivityFragmentComponent;
+import com.example.interview.interview.dependencyinjection.module.LoadPhotoServiceModule;
+import com.example.interview.interview.dependencyinjection.module.NetworkModule;
 import com.example.interview.interview.model.ImagePair;
 
 import java.util.List;
@@ -82,10 +85,12 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
     //Dagger2 setup
     private void injectPresenter() {
-//        DaggerMainActivityFragmentComponent
-//                .builder()
-//                .build()
-//                .inject(this);
+        DaggerMainActivityFragmentComponent
+                .builder()
+                .loadPhotoServiceModule(new LoadPhotoServiceModule())
+                .networkModule(new NetworkModule())
+                .build()
+                .inject(this);
     }
 }
 

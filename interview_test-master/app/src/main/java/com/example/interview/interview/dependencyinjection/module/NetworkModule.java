@@ -13,33 +13,33 @@ import rx.schedulers.Schedulers;
 @Module
 public class NetworkModule {
 
-//    @Provides
-//    public OkHttpClient provideOkhttpClient() {
-//        OkHttpClient.Builder client = new OkHttpClient.Builder();
-//        return client.build();
-//    }
-//
-//    @Provides
-//    public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
-//
-//        return new Retrofit.Builder()
-//                .client(okHttpClient)
-//                .baseUrl(NetworkConfig.BASE_ENDPOINT)
-//                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//    }
-
-
+    @Provides
+    OkHttpClient provideOkhttpClient() {
+        OkHttpClient.Builder client = new OkHttpClient.Builder();
+        return client.build();
+    }
 
     @Provides
-    public Retrofit provideRetrofit() {
+    Retrofit provideRetrofit(OkHttpClient okHttpClient) {
 
         return new Retrofit.Builder()
-                .client(new OkHttpClient.Builder().build())
+                .client(okHttpClient)
                 .baseUrl(NetworkConfig.BASE_ENDPOINT)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
+
+
+//
+//    @Provides
+//    Retrofit provideRetrofit() {
+//
+//        return new Retrofit.Builder()
+//                .client(new OkHttpClient.Builder().build())
+//                .baseUrl(NetworkConfig.BASE_ENDPOINT)
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//    }
 }

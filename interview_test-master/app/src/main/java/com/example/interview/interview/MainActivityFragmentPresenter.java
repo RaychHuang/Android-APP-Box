@@ -28,7 +28,7 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
     private MainActivityFragmentContract.View view;
 
     @Inject
-    public MainActivityFragmentPresenter(String id) {
+    public MainActivityFragmentPresenter() {
         this.pageNum = 0;
         this.noMoreData = false;
         this.loading = false;
@@ -39,11 +39,6 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
     public void takeView(MainActivityFragmentContract.View view) {
         this.view = view;
         this.pageNum = 0;
-//        DaggerPresenterComponent.builder()
-//                .networkModule(new NetworkModule())
-//                .photoServiceModule(new LoadPhotoServiceModule())
-//                .build()
-//                .inject(this);
     }
 
     @Override
@@ -53,12 +48,13 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
 
     @Override
     public void loadData() {
-        Log.i("Raych", "MainActivityFragmentPresenter.loadData() is called.");
+        Log.i("Raych", "MainActivityFragmentPresenter.loadData(): is called.");
         //service.loadPhotos(NetworkConfig.CLIENT_ID)
         if (service == null) {
             Log.i("Raych", "MainActivityFragmentPresenter.loadData(): service is null.");
             return;
         }
+        Log.i("Raych", "MainActivityFragmentPresenter.loadData(): is going to load image");
         service.loadPhotos(NetworkConfig.CLIENT_ID)
                 .map(new Func1<List<ResponseItem>, List<ImagePair>>() {
                     @Override
