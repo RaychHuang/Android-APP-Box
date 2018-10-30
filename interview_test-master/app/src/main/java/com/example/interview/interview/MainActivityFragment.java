@@ -27,7 +27,7 @@ import javax.inject.Inject;
 public class MainActivityFragment extends Fragment implements MainActivityFragmentContract.View {
 
     @Inject
-    MainActivityFragmentPresenter presenter;
+    MainActivityFragmentContract.Presenter presenter;
 
     private RecyclerView mRecyclerView;
     private PhotoAdapter mAdapter;
