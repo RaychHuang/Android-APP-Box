@@ -26,6 +26,7 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
     private boolean noMoreData;
     private boolean loading;
     private MainActivityFragmentContract.View view;
+    private List<ImagePair> localData;
 
     @Inject
     public MainActivityFragmentPresenter() {
@@ -47,7 +48,15 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
     }
 
     @Override
-    public void loadData() {
+    public void loadInitialList() {
+        if (localData != null) {
+            getView().showAddData(localData);
+        } else {
+            loadData();
+        }
+    }
+
+    private void loadData() {
         Log.i("Raych", "MainActivityFragmentPresenter.loadData(): is called.");
         //service.loadPhotos(NetworkConfig.CLIENT_ID)
         if (service == null) {
@@ -60,12 +69,13 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
                     @Override
                     public List<ImagePair> call(List<ResponseItem> responseItems) {
                         if (responseItems == null) {
-                            return  null;
+                            return null;
                         }
                         List<ImagePair> res = new ArrayList<>(responseItems.size());
                         for (int i = 0, iSize = responseItems.size(); i < iSize; i++) {
                             ResponseItem item = responseItems.get(i);
-                            res.add(new ImagePair(item.id, item.urls.regular));
+//                            res.add(new ImagePair(item.id, item.urls.regular));
+                            res.add(new ImagePair(item.id, item.urls.regular, item.width, item.height));
                         }
                         return res;
                     }
@@ -84,7 +94,8 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
             } else {
                 pageNum++;
                 noMoreData = false;
-                if (getView() != null) {
+                if (getView() != null) {;
+                    localData = data;
                     getView().showAddData(data);
                 }
             }

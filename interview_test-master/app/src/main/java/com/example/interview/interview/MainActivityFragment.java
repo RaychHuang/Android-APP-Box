@@ -1,10 +1,11 @@
 package com.example.interview.interview;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,16 +32,14 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
 
     private RecyclerView mRecyclerView;
     private PhotoAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private StaggeredGridLayoutManager mLayoutManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         injectPresenter();
         presenter.takeView(this);
-        if (savedInstanceState == null) {
-            presenter.loadData();
-        }
+        presenter.loadInitialList();
     }
 
     @Override
@@ -54,10 +53,11 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAdapter = new PhotoAdapter(getContext());
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
-        mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager = getMLayoutManager();
+        mAdapter = new PhotoAdapter(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.addOnScrollListener(new MyOnScrollListener());
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -91,6 +91,42 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
                 .networkModule(new NetworkModule())
                 .build()
                 .inject(this);
+    }
+
+    //
+    private StaggeredGridLayoutManager getMLayoutManager() {
+        StaggeredGridLayoutManager manager;
+        Configuration config = getResources().getConfiguration();
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            manager = new StaggeredGridLayoutManager(2,
+                    StaggeredGridLayoutManager.VERTICAL);
+        } else {
+            manager = new StaggeredGridLayoutManager(1,
+                    StaggeredGridLayoutManager.VERTICAL);
+        }
+        manager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+        return  manager;
+    }
+
+    //
+    private class MyOnScrollListener extends RecyclerView.OnScrollListener {
+
+        public MyOnScrollListener() {
+            super();
+        }
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                mLayoutManager.invalidateSpanAssignments();
+            }
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+        }
     }
 }
 

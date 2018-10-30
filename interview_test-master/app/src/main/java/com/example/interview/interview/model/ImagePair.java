@@ -1,18 +1,22 @@
 package com.example.interview.interview.model;
 
-/**
- * Created by Raych on Oct.26, 18.
- */
-
 public class ImagePair {
 
-    String id;
-
-    String url;
+    private String id;
+    private String url;
+    private int width;
+    private int height;
 
     public ImagePair(String id, String url) {
         this.id = id;
         this.url = url;
+    }
+
+    public ImagePair(String id, String url, int w, int h) {
+        this.id = id;
+        this.url = url;
+        this.width = w;
+        this.height = h;
     }
 
     public String getId() {
@@ -21,5 +25,9 @@ public class ImagePair {
 
     public String getUrl() {
         return this.url;
+    }
+
+    public int getTargetHeight(int targetWidth) {
+        return (this.height * targetWidth) / this.width;
     }
 }
