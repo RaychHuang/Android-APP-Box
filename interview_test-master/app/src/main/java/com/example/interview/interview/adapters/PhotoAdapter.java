@@ -46,6 +46,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
         int height = imagePair.getTargetHeight(baseWidth);
         if (baseWidth > 0) {
+            Log.d("Raych", "Sizes are known.");
             ViewGroup.LayoutParams imageLayoutParams = holder.mImage.getLayoutParams();
             imageLayoutParams.width = baseWidth;
             imageLayoutParams.height = height;
@@ -53,6 +54,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
             holder.mImage.setMinimumWidth(height);
             holder.mImage.setLayoutParams(imageLayoutParams);
         } else {
+            Log.d("Raych", "Sizes are !unknown.");
             int picWidth = holder.mImage.getWidth();
             if (picWidth > 0) {
                 setBaseWidth(picWidth);

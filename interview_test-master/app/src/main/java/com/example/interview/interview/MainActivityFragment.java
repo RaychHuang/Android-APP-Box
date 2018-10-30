@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.example.interview.interview.adapters.PhotoAdapter;
 import com.example.interview.interview.dependencyinjection.component.DaggerMainActivityFragmentComponent;
 import com.example.interview.interview.dependencyinjection.module.LoadPhotoServiceModule;
-import com.example.interview.interview.dependencyinjection.module.NetworkModule;
 import com.example.interview.interview.model.ImagePair;
 
 import java.util.List;
@@ -33,13 +32,17 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
     private RecyclerView mRecyclerView;
     private PhotoAdapter mAdapter;
     private StaggeredGridLayoutManager mLayoutManager;
+    private boolean isLoadData = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         injectPresenter();
         presenter.takeView(this);
-        presenter.loadInitialList();
+        if (savedInstanceState == null) {
+            presenter.loadInitialList();
+            isLoadData = true;
+        }
     }
 
     @Override
@@ -62,6 +65,12 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
     }
 
     @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        presenter.loadInitialList();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         presenter.dropView();
@@ -70,17 +79,9 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
     //MainActivityFragmentContract.View
     @Override
     public void showAddData(List<ImagePair> data) {
-        mAdapter.replaceData(data);
-    }
-
-    @Override
-    public void noMoreData() {
-
-    }
-
-    @Override
-    public void netWorkError() {
-
+        if (mAdapter != null) {
+            mAdapter.replaceData(data);
+        }
     }
 
     //Dagger2 setup
@@ -88,7 +89,6 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
         DaggerMainActivityFragmentComponent
                 .builder()
                 .loadPhotoServiceModule(new LoadPhotoServiceModule())
-                .networkModule(new NetworkModule())
                 .build()
                 .inject(this);
     }
@@ -118,9 +118,7 @@ public class MainActivityFragment extends Fragment implements MainActivityFragme
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                mLayoutManager.invalidateSpanAssignments();
-            }
+            mLayoutManager.invalidateSpanAssignments();
         }
 
         @Override

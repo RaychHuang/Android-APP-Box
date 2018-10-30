@@ -26,7 +26,7 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
     private boolean noMoreData;
     private boolean loading;
     private MainActivityFragmentContract.View view;
-    private List<ImagePair> localData;
+    private static List<ImagePair> localData;
 
     @Inject
     public MainActivityFragmentPresenter() {
@@ -50,7 +50,7 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
     @Override
     public void loadInitialList() {
         if (localData != null) {
-            getView().showAddData(localData);
+            getView().showAddData(getLocalData());
         } else {
             loadData();
         }
@@ -94,8 +94,8 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
             } else {
                 pageNum++;
                 noMoreData = false;
-                if (getView() != null) {;
-                    localData = data;
+                if (getView() != null) {
+                    setLocalData(data);
                     getView().showAddData(data);
                 }
             }
@@ -104,6 +104,14 @@ public class MainActivityFragmentPresenter implements MainActivityFragmentContra
 
     private void loadDataError(Throwable e) {
         Log.i("Raych", "MainActivityFragmentPresenter.loadDataError() is called.");
+    }
+
+    private List<ImagePair> getLocalData() {
+        return new ArrayList<>(localData);
+    }
+
+    private void setLocalData(List<ImagePair> data) {
+        localData = new ArrayList<>(data);
     }
 
     private MainActivityFragmentContract.View getView() {

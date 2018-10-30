@@ -9,10 +9,6 @@ public interface MainActivityFragmentContract {
     interface View {
         
         void showAddData(List<ImagePair> data);
-
-        void noMoreData();
-
-        void netWorkError();
     }
 
     interface Presenter {

@@ -7,7 +7,7 @@ import com.example.interview.interview.dependencyinjection.module.PresenterModul
 
 import dagger.Component;
 
-@Component(modules = {PresenterModule.class, LoadPhotoServiceModule.class, NetworkModule.class})
+@Component(modules = {PresenterModule.class, LoadPhotoServiceModule.class})
 public interface MainActivityFragmentComponent {
 
     void inject(MainActivityFragment fragment);
