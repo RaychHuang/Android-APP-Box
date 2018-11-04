@@ -64,13 +64,13 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         }
 
         if (baseWidth > 0) {
-            Picasso.with(context)
+            Picasso.get()
                     .load(info.getUrl())
                     .resize(baseWidth, height)
                     .onlyScaleDown()
                     .into(holder.mImageView);
         } else {
-            Picasso.with(context)
+            Picasso.get()
                     .load(info.getUrl())
                     .into(holder.mImageView);
         }
