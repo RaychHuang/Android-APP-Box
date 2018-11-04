@@ -1,0 +1,27 @@
+package com.example.interview.interview.model.basic;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+/**
+ * Created by Raych on Oct.31, 18.
+ */
+public class Urls {
+
+    @SerializedName("raw")
+    @Expose
+    public String raw;
+    @SerializedName("full")
+    @Expose
+    public String full;
+    @SerializedName("regular")
+    @Expose
+    public String regular;
+    @SerializedName("small")
+    @Expose
+    public String small;
+    @SerializedName("thumb")
+    @Expose
+    public String thumb;
+
+}
