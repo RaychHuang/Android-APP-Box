@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:padding="@dimen/spacing_medium"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <TextView
+    android:id="@+id/item_event_id_title"
+    android:layout_width="@dimen/base_item_title_width"
+    android:layout_height="@dimen/base_item_height"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:textSize="@dimen/textSize_small"
+    android:textStyle="bold|italic|italic"
+    android:text="@string/item_event_id"/>
+
+  <TextView
+    android:id="@+id/item_event_id"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/base_item_height"
+    app:layout_constraintLeft_toRightOf="@+id/item_event_id_title"
+    tools:text="51c685a4fb20655902014ac3"/>
+
+
+  <TextView
+    android:id="@+id/item_event_medication_name_title"
+    android:layout_width="@dimen/base_item_title_width"
+    android:layout_height="@dimen/base_item_height"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/item_event_id_title"
+    android:textSize="@dimen/textSize_small"
+    android:textStyle="bold|italic|italic"
+    android:text="@string/item_event_medication_name"/>
+
+  <TextView
+    android:id="@+id/item_event_medication_name"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/base_item_height"
+    app:layout_constraintLeft_toRightOf="@+id/item_event_medication_type_title"
+    app:layout_constraintTop_toTopOf="@id/item_event_medication_name_title"
+    tools:text="proair"/>
+
+
+  <TextView
+    android:id="@+id/item_event_medication_type_title"
+    android:layout_width="@dimen/base_item_title_width"
+    android:layout_height="@dimen/base_item_height"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/item_event_medication_name_title"
+    android:textSize="@dimen/textSize_small"
+    android:textStyle="bold|italic|italic"
+    android:text="@string/item_event_medication_type"/>
+
+
+  <TextView
+    android:id="@+id/item_event_medication_type"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/base_item_height"
+    app:layout_constraintLeft_toRightOf="@+id/item_event_medication_type_title"
+    app:layout_constraintTop_toTopOf="@id/item_event_medication_type_title"
+    tools:text="rescue"/>
+
+  <TextView
+    android:id="@+id/item_event_medication_timestamp_title"
+    android:layout_width="@dimen/base_item_title_width"
+    android:layout_height="@dimen/base_item_height"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/item_event_medication_type_title"
+    android:textSize="@dimen/textSize_small"
+    android:textStyle="bold|italic|italic"
+    android:text="@string/item_event_timestamp"/>
+
+  <TextView
+    android:id="@+id/item_event_timestamp"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/base_item_height"
+    app:layout_constraintLeft_toRightOf="@+id/item_event_medication_timestamp_title"
+    app:layout_constraintTop_toTopOf="@id/item_event_medication_timestamp_title"
+    tools:text="2015-01-01T11:32:00.000Z"/>
+
+</android.support.constraint.ConstraintLayout>

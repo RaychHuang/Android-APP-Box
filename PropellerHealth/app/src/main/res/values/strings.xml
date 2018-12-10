@@ -1,0 +1,17 @@
+<resources>
+  <string name="app_name">PropellerHealth</string>
+
+  //Event item name
+  <string name="item_event_id">Event ID:</string>
+  <string name="item_event_medication_name">Medication Name:</string>
+  <string name="item_event_medication_type">Medication Type:</string>
+  <string name="item_event_timestamp">Timestamp:</string>
+
+  //New Event
+  <string name="new_event_title">New Event</string>
+  <string name="new_event_cancel_btn">Cancel</string>
+  <string name="new_event_save_btn">Save</string>
+  <string name="new_event_set_date">Set Date</string>
+  <string name="new_event_set_time">Time</string>
+
+</resources>

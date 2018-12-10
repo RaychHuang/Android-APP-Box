@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string-array name="medication_names">
+    <item>symbicort</item>
+    <item>proair</item>
+  </string-array>
+
+  <string-array name="medication_types">
+    <item>controller</item>
+    <item>rescue</item>
+  </string-array>
+
+</resources>
