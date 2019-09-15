@@ -14,6 +14,7 @@ public interface Contract {
 
         /**
          * Get callback by the Presenter with data List<ImageInfo>.
+         *
          * @param data
          */
         void showAddedData(List<ImageInfo> data);
@@ -23,6 +24,7 @@ public interface Contract {
 
         /**
          * Called by View, to pass the instance of the Contract.View into Presenter.
+         *
          * @param view Instance of Contract.View
          */
         void takeView(View view);
@@ -34,5 +36,4 @@ public interface Contract {
 
         void loadInitialData();
     }
-
 }

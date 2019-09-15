@@ -1,16 +1,19 @@
 package com.example.interview.interview.view;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.interview.interview.R;
 import com.example.interview.interview.model.basic.ImageInfo;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +27,15 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
     public PhotoAdapter(Context context) {
         this.context = context;
-        mData = new ArrayList<>(20);
+        this.mData = new ArrayList<>(20);
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {// create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_photo, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -63,17 +66,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
             }
         }
 
-        if (baseWidth > 0) {
-            Picasso.get()
-                    .load(info.getUrl())
-                    .resize(baseWidth, height)
-                    .onlyScaleDown()
-                    .into(holder.mImageView);
-        } else {
-            Picasso.get()
-                    .load(info.getUrl())
-                    .into(holder.mImageView);
-        }
+        Glide.with(context).load(info.getUrl()).into(holder.mImageView);
     }
 
     @Override
@@ -81,13 +74,10 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         return mData.size();
     }
 
-    public void AddData(List<ImageInfo> newData) {
+    public void addData(List<ImageInfo> newData) {
         if (newData != null) {
             mData.addAll(newData);
             notifyDataSetChanged();
-            Log.i("Ray", "DataChanged.");
-        } else {
-            Log.i("Ray", "newData is null.");
         }
     }
 

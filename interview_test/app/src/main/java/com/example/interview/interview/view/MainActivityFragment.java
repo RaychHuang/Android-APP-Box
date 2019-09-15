@@ -2,10 +2,12 @@ package com.example.interview.interview.view;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +26,7 @@ import javax.inject.Inject;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements Contract.View{
+public class MainActivityFragment extends Fragment implements Contract.View {
 
     @Inject
     Contract.Presenter presenter;
@@ -47,8 +49,7 @@ public class MainActivityFragment extends Fragment implements Contract.View{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_main, container, false);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class MainActivityFragment extends Fragment implements Contract.View{
         super.onViewCreated(view, savedInstanceState);
 
         mAdapter = getMAdapter();
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
+        mRecyclerView = view.findViewById(R.id.my_recycler_view);
         mLayoutManager = getMLayoutManager();
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addOnScrollListener(new MyOnScrollListener());
@@ -73,7 +74,7 @@ public class MainActivityFragment extends Fragment implements Contract.View{
     @Override
     public void showAddedData(List<ImageInfo> data) {
         if (mAdapter != null) {
-            mAdapter.AddData(data);
+            mAdapter.addData(data);
         }
     }
 
@@ -102,7 +103,7 @@ public class MainActivityFragment extends Fragment implements Contract.View{
                     StaggeredGridLayoutManager.VERTICAL);
         }
         manager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
-        return  manager;
+        return manager;
     }
 
     private class MyOnScrollListener extends RecyclerView.OnScrollListener {
@@ -122,7 +123,6 @@ public class MainActivityFragment extends Fragment implements Contract.View{
             super.onScrolled(recyclerView, dx, dy);
         }
     }
-
 }
 
 

@@ -23,5 +23,4 @@ public class Urls {
     @SerializedName("thumb")
     @Expose
     public String thumb;
-
 }

@@ -15,6 +15,6 @@ public class LoadImageServiceModule {
 
     @Provides
     LoadImageService provideLoadImageService(Retrofit retrofit) {
-        return  retrofit.create(LoadImageService.class);
+        return retrofit.create(LoadImageService.class);
     }
 }
