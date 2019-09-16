@@ -11,7 +11,7 @@ public class AssertLoader {
 
     private static final AssertLoader INSTANCE = new AssertLoader(MyApplication.getAppInstance());
 
-    private static final String fileName = "";
+    private static final String fileName = "photos.json";
 
     private Context context;
 
